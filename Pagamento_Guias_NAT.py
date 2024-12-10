@@ -395,8 +395,6 @@ with row1[0]:
 
     gerar_mapa = container_datas.button('Gerar Mapa de Pagamentos')
 
-    inserir = container_datas.button('Inserir infos no Drive')
-
 with row1[1]:
 
     atualizar_phoenix = st.button('Atualizar Dados Phoenix')
