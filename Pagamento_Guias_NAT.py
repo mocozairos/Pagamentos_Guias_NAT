@@ -431,10 +431,10 @@ if gerar_mapa:
 
     # Puxando tarifários e tratando colunas de números
 
-    # puxar_aba_simples('1tsaBFwE3KS84r_I5-g3YGP7tTROe1lyuCw_UjtxofYI', 'Tarifário Robô', 'df_tarifario')
+    puxar_aba_simples('1tsaBFwE3KS84r_I5-g3YGP7tTROe1lyuCw_UjtxofYI', 'Tarifário Robô', 'df_tarifario')
 
-    # st.session_state.df_tarifario[['Valor Padrão', 'Valor Espanhol', 'Valor Inglês']] = st.session_state.df_tarifario[['Valor Padrão', 'Valor Espanhol', 'Valor Inglês']]\
-    #     .apply(pd.to_numeric, errors='coerce')
+    st.session_state.df_tarifario[['Valor Padrão', 'Valor Espanhol', 'Valor Inglês']] = st.session_state.df_tarifario[['Valor Padrão', 'Valor Espanhol', 'Valor Inglês']]\
+        .apply(pd.to_numeric, errors='coerce')
 
     # Filtrando período solicitado pelo usuário
 
