@@ -65,28 +65,6 @@ def puxar_aba_simples(id_gsheet, nome_aba, nome_df):
 
     st.session_state[nome_df] = pd.DataFrame(sheet_data[1:], columns=sheet_data[0])
 
-def inserir_info_sheets(df_pag_final, nome_aba, id_gsheet):
-
-    nome_credencial = st.secrets["CREDENCIAL_SHEETS"]
-    credentials = service_account.Credentials.from_service_account_info(nome_credencial)
-    scope = ['https://www.googleapis.com/auth/spreadsheets']
-    credentials = credentials.with_scopes(scope)
-    client = gspread.authorize(credentials)
-
-    spreadsheet = client.open_by_key(id_gsheet)
-    
-    sheet = spreadsheet.worksheet(nome_aba)
-
-    sheet.batch_clear(["2:100000"])
-
-    df_pag_final = df_pag_final.fillna("").astype(str)
-
-    data_to_insert = df_pag_final.values.tolist()
-
-    sheet.update("A2", data_to_insert)
-    
-    st.success('Informações de Pagamentos inseridas na planilha!')
-
 def transformar_em_listas(idiomas):
 
     return list(set(idiomas))
@@ -661,13 +639,3 @@ if 'html_content' in st.session_state and guia:
             st.error(f"Erro. Favor contactar o suporte")
 
             st.error(f"{response}")
-
-if inserir:
-
-    df_escalas = st.session_state.df_escalas[(st.session_state.df_escalas['Data da Escala'] >= data_inicial) & (st.session_state.df_escalas['Data da Escala'] <= data_final)].reset_index(drop=True)
-
-    lista_servicos = df_escalas['Guia'].dropna().unique().tolist()
-
-    df_insercao = pd.DataFrame(columns=['Servico'], data=lista_servicos)
-
-    inserir_info_sheets(df_insercao, 'Telefones Guias', '1tsaBFwE3KS84r_I5-g3YGP7tTROe1lyuCw_UjtxofYI')
